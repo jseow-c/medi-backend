@@ -1,9 +1,8 @@
 const fs = require("fs");
 const path = require("path");
 
-// accessToken
+// accessToken for webex
 const accessToken = process.env.access_token;
-// defaultOption
 const headers = { Authorization: `Bearer ${accessToken}` };
 
 // read files
@@ -26,9 +25,9 @@ exports.writeFile = (data, filename) => {
 };
 
 // overwrite data.json
-exports.fullOverwrite = async data => {
+exports.fullOverwrite = file => async data => {
   const dataString = JSON.stringify(data);
-  await fs.writeFileSync(path.join(__dirname, "../", "data.json"), dataString);
+  await fs.writeFileSync(path.join(__dirname, "../", file), dataString);
   return;
 };
 

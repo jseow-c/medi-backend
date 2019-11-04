@@ -1,7 +1,12 @@
 const axios = require("axios");
-const misc = require("../misc");
+const misc = require("../../misc");
+const options = require("../options");
 
-const { headers, fullOverwrite } = misc;
+const { fullOverwrite } = misc;
+
+const { baseUrl, headers } = options;
+
+const overwrite = fullOverwrite("data.json");
 
 exports.list = async (req, res, data) => {
   return res.json(data);
@@ -13,13 +18,13 @@ exports.create = async (req, res, data) => {
   if (title in data) {
     res.send(`Room Exist - ${title}:${data[title].id}`);
   } else {
-    const url = "https://api.ciscospark.com/v1/rooms";
+    const url = `${baseUrl}/rooms`;
     const options = { headers };
     const postData = { title };
 
     const response = await axios.post(url, postData, options);
     const id = response.data.id;
-    const peopleUrl = `https://api.ciscospark.com/v1/memberships?roomId=${id}`;
+    const peopleUrl = `${baseUrl}/memberships?roomId=${id}`;
     const people = await axios.get(peopleUrl, options);
     let memberships = {};
     for (let person of people.data.items) {
@@ -29,7 +34,7 @@ exports.create = async (req, res, data) => {
       };
     }
     data[title] = { id, title, memberships };
-    fullOverwrite(data);
+    overwrite(data);
 
     return res.json(data[title]);
   }
@@ -37,17 +42,24 @@ exports.create = async (req, res, data) => {
 
 exports.delete = async (req, res, data) => {
   const title = req.body.title;
+  const titleString = `${title}`;
+  console.log(title, req.body);
 
-  if (!title in data) {
-    res.send(`Room Does Not Exist - ${title}`);
+  if (titleString === "undefined" || !title) {
+    console.log("No title found to delete");
+    return res.status(500).send("Provide a valid room");
+  } else if (!title in data) {
+    return res.status(500).send(`Room Does Not Exist - ${title}`);
   } else {
+    console.log(`Deleting the room - ${title}`);
     const titleData = JSON.parse(JSON.stringify(data[title]));
-    const url = `https://api.ciscospark.com/v1/rooms/${data[title].id}`;
+    console.log(`Deleting the roomID - ${data[title].id}`);
+    const url = `${baseUrl}/rooms/${data[title].id}`;
     const options = { headers };
 
     await axios.delete(url, options);
     delete data[title];
-    fullOverwrite(data);
+    overwrite(data);
 
     return res.json(titleData);
   }

@@ -10,14 +10,16 @@
   },
   "dependencies": {
     "axios": "^0.19.0",
-    "botbuilder-adapter-webex": "^1.0.3",
+    "botbuilder-adapter-webex": "^1.0.4",
     "botbuilder-storage-mongodb": "^0.9.5",
-    "botkit": "^4.5.0",
-    "botkit-plugin-cms": "^1.0.2",
+    "botkit": "^4.6.1",
+    "botkit-plugin-cms": "^1.0.3",
     "cors": "^2.8.5",
     "dotenv": "^7.0.0",
     "express": "^4.17.1",
     "fs": "0.0.1-security",
-    "node-fetch": "^2.6.0"
+    "localtunnel": "^2.0.0",
+    "node-fetch": "^2.6.0",
+    "swagger-ui-express": "^4.1.2"
   }
 }

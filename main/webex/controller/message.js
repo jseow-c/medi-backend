@@ -1,7 +1,7 @@
 const axios = require("axios");
-const misc = require("../misc");
+const options = require("../options");
 
-const { headers, fullOverwrite } = misc;
+const { baseUrl, headers } = options;
 
 exports.list = async (req, res, data) => {
   return res.json(data);
@@ -12,7 +12,7 @@ exports.text = async (req, res, data) => {
   const text = req.body.text;
 
   if (title in data) {
-    const url = "https://api.ciscospark.com/v1/messages";
+    const url = `${baseUrl}/messages`;
     const options = { headers };
     const postData = {
       roomId: data[title].id,
@@ -31,7 +31,7 @@ exports.markD = async (req, res, data) => {
   const markdown = req.body.markdown;
 
   if (title in data) {
-    const url = "https://api.ciscospark.com/v1/messages";
+    const url = `${baseUrl}/messages`;
     const options = { headers };
     const postData = {
       roomId: data[title].id,
