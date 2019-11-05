@@ -18,7 +18,21 @@ exports.patient_set = async (req, res, data) => {
 
 exports.step_set = async (req, res, data) => {
   const step = req.body.step;
+  const date = new Date();
+  let newTiming;
+  if (step === 0) {
+    newTiming = [date];
+  } else if (data.timing.length > step) {
+    newTiming = data.timing.slice(0, step);
+    newTiming.push(date);
+  } else {
+    newTiming = data.timing.slice();
+    for (let i = 0; i <= step - data.timing.length; i++) {
+      newTiming.push(date);
+    }
+  }
   data.step = step;
+  data.timing = newTiming;
   overwrite(data);
   return res.send(`${step}`);
 };
