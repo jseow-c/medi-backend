@@ -63,3 +63,7 @@ exports.demo_step_set = (req, res) =>
   demoController.step_set(req, res, demoData);
 exports.demo_medicine_set = (req, res) =>
   demoController.medicine_set(req, res, demoData, medicineData);
+exports.demo_status_set = (req, res) =>
+  demoController.status_set(req, res, demoData);
+exports.demo_timing_get = (req, res) =>
+  demoController.timing_get(req, res, demoData);

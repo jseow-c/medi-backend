@@ -2,7 +2,7 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License.
  */
-// const axios = require("axios");
+const axios = require("axios");
 
 module.exports = function(controller) {
   // end payment
@@ -14,6 +14,12 @@ module.exports = function(controller) {
     },
     ["message"],
     async (bot, message) => {
+      // add it back to demo.json
+      const url = `http://localhost:${process.env.SERVER_PORT}/demo/status`;
+      const options = { "Content-Type": "application/json" };
+      const data = { status: true };
+      console.log(data, url, options);
+      await axios.post(url, data, options);
       await bot.reply(message, { text: "Roger. Payment completed." });
     }
   );

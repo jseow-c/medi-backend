@@ -44,3 +44,14 @@ exports.medicine_set = async (req, res, data, medicineData) => {
   overwrite(newData);
   return res.json({ medicine, payment });
 };
+
+exports.status_set = async (req, res, data) => {
+  const status = req.body.status;
+  const newData = { ...data, status };
+  overwrite(newData);
+  return res.json({ status });
+};
+
+exports.timing_get = async (req, res, data) => {
+  return res.json(data.timing);
+};

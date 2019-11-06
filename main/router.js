@@ -32,5 +32,7 @@ router.get("/demo/patient", controller.demo_patient_get);
 router.post("/demo/patient", controller.demo_patient_set);
 router.post("/demo/step", controller.demo_step_set);
 router.post("/demo/medicine", controller.demo_medicine_set);
+router.post("/demo/status", controller.demo_status_set);
+router.get("/demo/timing", controller.demo_timing_get);
 
 module.exports = router;

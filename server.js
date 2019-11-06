@@ -3,6 +3,14 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 
+// start bot
+const bot = require("./serveo-bot");
+bot.startBot();
+
+// keep bot alive
+const cron = require("./main/cron");
+cron.startCron();
+
 // start express app
 const app = express();
 app.use(cors());

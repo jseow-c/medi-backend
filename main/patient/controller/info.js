@@ -1,8 +1,3 @@
-const misc = require("../../misc");
-
-const { fullOverwrite } = misc;
-const overwrite = fullOverwrite("intercorp.json");
-
 const convertInfoToMarkdown = (data, sequence) => {
   const capitalize = str => str.charAt(0).toUpperCase() + str.slice(1);
   const formatHeader = str =>
@@ -13,7 +8,7 @@ const convertInfoToMarkdown = (data, sequence) => {
   const formatting = str => {
     if (Array.isArray(data[str]))
       return `${formatHeader(str)}: ${capitalize(data[str].join(", "))}${nxt}`;
-    else return `${formatHeader(str)}: ${capitalize(data[str])}${nxt}`;
+    else return `${formatHeader(str)}: ${capitalize(`${data[str]}`)}${nxt}`;
   };
 
   const nxt = "  \n";
@@ -69,6 +64,7 @@ exports.markD = async (req, res, data, demoData) => {
   if (name && name in data && step !== 0) {
     const { medicine, payment } = demoData;
     const resData = { ...data[name], medicine, payment };
+    console.log(resData);
     let formattedString = "";
     if (step < 3) formattedString = convertInfoToMarkdown(resData, info3);
     else if (step < 9) formattedString = convertInfoToMarkdown(resData, info9);
