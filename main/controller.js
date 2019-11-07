@@ -67,3 +67,5 @@ exports.demo_status_set = (req, res) =>
   demoController.status_set(req, res, demoData);
 exports.demo_timing_get = (req, res) =>
   demoController.timing_get(req, res, demoData);
+exports.demo_message_set_and_get = (req, res) =>
+  demoController.message_set_and_get(req, res, demoData);

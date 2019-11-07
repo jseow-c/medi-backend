@@ -1,4 +1,9 @@
 const misc = require("../../misc");
+const options = require("../options");
+
+const axios = require("axios");
+
+const { webexBaseUrl, webexHeaders } = options;
 
 const { fullOverwrite } = misc;
 
@@ -40,18 +45,29 @@ exports.step_set = async (req, res, data) => {
 exports.medicine_set = async (req, res, data, medicineData) => {
   const medicine = req.body.medicine;
   const payment = medicine.reduce((acc, cur) => acc + medicineData[cur], 0);
-  const newData = { ...data, medicine, payment };
-  overwrite(newData);
+  data.medicine = medicine;
+  data.payment = payment;
+  overwrite(data);
   return res.json({ medicine, payment });
 };
 
 exports.status_set = async (req, res, data) => {
   const status = req.body.status;
-  const newData = { ...data, status };
-  overwrite(newData);
+  data.status = status;
+  overwrite(data);
   return res.json({ status });
 };
 
 exports.timing_get = async (req, res, data) => {
   return res.json(data.timing);
+};
+
+exports.message_set_and_get = async (req, res, data) => {
+  const url = `${webexBaseUrl}/messages?roomId=${data.roomId}`;
+  const options = { headers: webexHeaders };
+  console.log(url, options);
+  const response = await axios.get(url, options);
+  data.message = response.data.items;
+  overwrite(data);
+  return res.json(data.message);
 };

@@ -60,15 +60,17 @@ exports.markD = async (req, res, data, demoData) => {
     "respiratory_rate",
     "spo2"
   ]);
-  const info13 = info9.concat(["medicine", "payment"]);
+  const info10 = info9.concat(["medicine", "payment"]);
+  const info11 = info10.concat(["status"]);
   if (name && name in data && step !== 0) {
-    const { medicine, payment } = demoData;
-    const resData = { ...data[name], medicine, payment };
-    console.log(resData);
+    const { medicine, payment, status } = demoData;
+    const resData = { ...data[name], medicine, payment, status };
     let formattedString = "";
     if (step < 3) formattedString = convertInfoToMarkdown(resData, info3);
     else if (step < 9) formattedString = convertInfoToMarkdown(resData, info9);
-    else formattedString = convertInfoToMarkdown(resData, info13);
+    else if (step < 10)
+      formattedString = convertInfoToMarkdown(resData, info10);
+    else formattedString = convertInfoToMarkdown(resData, info11);
     res.send(formattedString);
   } else if (step === 0) res.status(500).send("No conversation is created.");
   else res.status(500).send("Name not found.");
