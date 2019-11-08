@@ -26,9 +26,7 @@ const convertInfoToMarkdown = (data, sequence) => {
 
 exports.get = async (req, res, data, demoData) => {
   const name = req.body.name;
-  console.log(name, data[name]);
   if (name in data) {
-    console.log(demoData);
     const { medicine, payment } = demoData;
     const resData = { ...data[name], medicine, payment };
     res.json(resData);

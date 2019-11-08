@@ -5,6 +5,7 @@ const cors = require("cors");
 
 // start bot
 const bot = require("./serveo-bot");
+// const bot = require("./bot");
 bot.startBot();
 
 // keep bot alive

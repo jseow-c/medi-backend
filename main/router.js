@@ -35,5 +35,6 @@ router.post("/demo/medicine", controller.demo_medicine_set);
 router.post("/demo/status", controller.demo_status_set);
 router.get("/demo/timing", controller.demo_timing_get);
 router.post("/demo/message", controller.demo_message_set_and_get);
+router.post("/demo/room/clear/all", controller.demo_room_clear_all);
 
 module.exports = router;

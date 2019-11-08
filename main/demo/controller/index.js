@@ -3,11 +3,13 @@ const options = require("../options");
 
 const axios = require("axios");
 
-const { webexBaseUrl, webexHeaders } = options;
+const { webexBaseUrl, webexHeaders, webexBotHeaders } = options;
 
 const { fullOverwrite } = misc;
 
 const overwrite = fullOverwrite("demo.json");
+
+const webexOverwrite = fullOverwrite("data.json");
 
 exports.patient_get = async (req, res, data) => {
   return res.json(data);
@@ -64,10 +66,28 @@ exports.timing_get = async (req, res, data) => {
 
 exports.message_set_and_get = async (req, res, data) => {
   const url = `${webexBaseUrl}/messages?roomId=${data.roomId}`;
+  console.log(url);
   const options = { headers: webexHeaders };
-  console.log(url, options);
   const response = await axios.get(url, options);
   data.message = response.data.items;
+  console.log("got the messages", data.message[0]);
   overwrite(data);
   return res.json(data.message);
+};
+
+exports.room_clear_all = async (req, res, data) => {
+  const url = `${webexBaseUrl}/rooms`;
+  const options = { headers: webexBotHeaders };
+  const rooms = await axios.get(url, options);
+  for (let room of rooms.data.items) {
+    console.log(room.title);
+    if (room.title.startsWith("MOH -")) {
+      console.log(`Deleting room - ${room.title}`);
+      const roomUrl = `${webexBaseUrl}/rooms/${room.id}`;
+      await axios.delete(roomUrl, options);
+      delete data[room.title];
+    }
+  }
+  webexOverwrite(data);
+  return res.send("All MOH demo rooms cleared.");
 };

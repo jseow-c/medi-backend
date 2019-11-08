@@ -18,7 +18,6 @@ module.exports = function(controller) {
       const url = `http://localhost:${process.env.SERVER_PORT}/demo/status`;
       const options = { "Content-Type": "application/json" };
       const data = { status: true };
-      console.log(data, url, options);
       await axios.post(url, data, options);
       await bot.reply(message, { text: "Roger. Payment completed." });
     }

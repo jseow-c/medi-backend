@@ -13,16 +13,21 @@ exports.create = async (req, res, data) => {
   const email = req.body.email;
 
   if (title in data) {
-    const url = `${baseUrl}/memberships`;
-    const options = { headers };
-    const postData = {
-      roomId: data[title].id,
-      personEmail: email,
-      isModerator: false
-    };
-    const response = await axios.post(url, postData, options);
-    const id = response.data.id;
-    data[title].memberships[email] = { email, id };
+    try {
+      const url = `${baseUrl}/memberships`;
+      const options = { headers };
+      const postData = {
+        roomId: data[title].id,
+        personEmail: email,
+        isModerator: false
+      };
+      console.log(url, options, postData);
+      const response = await axios.post(url, postData, options);
+      const id = response.data.id;
+      data[title].memberships[email] = { email, id };
+    } catch (error) {
+      console.log(error);
+    }
     overwrite(data);
 
     return res.json(data[title].memberships[email]);

@@ -69,3 +69,5 @@ exports.demo_timing_get = (req, res) =>
   demoController.timing_get(req, res, demoData);
 exports.demo_message_set_and_get = (req, res) =>
   demoController.message_set_and_get(req, res, demoData);
+exports.demo_room_clear_all = (req, res) =>
+  demoController.room_clear_all(req, res, webexData);

@@ -92,7 +92,6 @@ module.exports = function(controller) {
         handler: async (response, convo, bot) => {
           await bot.say("Adding Sebastian Ma to the conversation...");
           // const room = await bot.api.rooms.get();
-          console.log(convo.channel, response.channel, bot.channel);
           // Adding Sebastian here
           await bot.api.memberships.create({
             roomId: convo.vars.channel,

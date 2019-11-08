@@ -22,19 +22,24 @@ exports.create = async (req, res, data) => {
     const options = { headers };
     const postData = { title };
 
-    const response = await axios.post(url, postData, options);
-    const id = response.data.id;
-    const peopleUrl = `${baseUrl}/memberships?roomId=${id}`;
-    const people = await axios.get(peopleUrl, options);
-    let memberships = {};
-    for (let person of people.data.items) {
-      memberships[person.personEmail] = {
-        email: person.personEmail,
-        id: person.id
-      };
+    try {
+      const response = await axios.post(url, postData, options);
+      const id = response.data.id;
+      const peopleUrl = `${baseUrl}/memberships?roomId=${id}`;
+      const people = await axios.get(peopleUrl, options);
+      let memberships = {};
+      for (let person of people.data.items) {
+        memberships[person.personEmail] = {
+          email: person.personEmail,
+          id: person.id
+        };
+      }
+      data[title] = { id, title, memberships };
+    } catch (error) {
+      console.log(error);
     }
-    data[title] = { id, title, memberships };
-    overwrite(data);
+    console.log(data);
+    await overwrite(data);
 
     return res.json(data[title]);
   }
@@ -43,7 +48,6 @@ exports.create = async (req, res, data) => {
 exports.delete = async (req, res, data) => {
   const title = req.body.title;
   const titleString = `${title}`;
-  console.log(title, req.body);
 
   if (titleString === "undefined" || !title) {
     console.log("No title found to delete");

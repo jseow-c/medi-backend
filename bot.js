@@ -28,7 +28,8 @@ if (process.env.MONGO_URI) {
 }
 
 // Start a LocalTunnel
-(async () => {
+
+exports.startBot = async () => {
   tunnel = await localtunnel({ port: process.env.PORT });
 
   // the assigned public url for your tunnel
@@ -88,4 +89,4 @@ if (process.env.MONGO_URI) {
     // tunnels are closed
     console.log("Tunnels are closed again!");
   });
-})();
+};
