@@ -64,10 +64,10 @@ exports.timing_get = async (req, res, data) => {
   return res.json(data.timing);
 };
 
-exports.message_set_and_get = async (req, res, data) => {
+exports.message_set_and_get = async (req, res, data, headers) => {
   const url = `${webexBaseUrl}/messages?roomId=${data.roomId}`;
   console.log(url);
-  const options = { headers: webexHeaders };
+  const options = { headers };
   const response = await axios.get(url, options);
   data.message = response.data.items;
   console.log("got the messages", data.message[0]);
@@ -90,4 +90,10 @@ exports.room_clear_all = async (req, res, data) => {
   }
   webexOverwrite(data);
   return res.send("All MOH demo rooms cleared.");
+};
+
+exports.token_set = async (req, res, header) => {
+  const token = req.body.token;
+  header.Authorization = `Bearer ${token}`;
+  return res.json({ token });
 };

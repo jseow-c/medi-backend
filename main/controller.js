@@ -17,6 +17,11 @@ model().then(response => {
   medicineData = response.medicineData;
 });
 
+// initialize header
+const webexHeader = {
+  Authorization: `Bearer ${process.env.WEBEX_ADMIN_TOKEN}`
+};
+
 // Webex Membership Controllers
 exports.mem_create = (req, res) => memController.create(req, res, webexData);
 exports.mem_delete = (req, res) => memController.delete(req, res, webexData);
@@ -55,6 +60,8 @@ exports.patient_markdown = (req, res) =>
   infoController.markD(req, res, patientData, demoData);
 
 // Demo Data
+exports.demo_token_set = (req, res) =>
+  demoController.token_set(req, res, webexHeader);
 exports.demo_patient_get = (req, res) =>
   demoController.patient_get(req, res, demoData);
 exports.demo_patient_set = (req, res) =>
@@ -68,6 +75,6 @@ exports.demo_status_set = (req, res) =>
 exports.demo_timing_get = (req, res) =>
   demoController.timing_get(req, res, demoData);
 exports.demo_message_set_and_get = (req, res) =>
-  demoController.message_set_and_get(req, res, demoData);
+  demoController.message_set_and_get(req, res, demoData, webexHeader);
 exports.demo_room_clear_all = (req, res) =>
   demoController.room_clear_all(req, res, webexData);

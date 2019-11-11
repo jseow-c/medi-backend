@@ -4,13 +4,14 @@ const express = require("express");
 const cors = require("cors");
 
 // start bot
-const bot = require("./serveo-bot");
+const bot = require("./ngrok-bot");
+// const bot = require("./serveo-bot");
 // const bot = require("./bot");
 bot.startBot();
 
 // keep bot alive
-const cron = require("./main/cron");
-cron.startCron();
+// const cron = require("./main/cron");
+// cron.startCron();
 
 // start express app
 const app = express();
