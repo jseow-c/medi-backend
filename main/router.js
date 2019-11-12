@@ -29,6 +29,7 @@ router.post("/patient/get", controller.patient_get);
 router.post("/patient/markdown", controller.patient_markdown);
 
 router.get("/demo/patient", controller.demo_patient_get);
+router.post("/demo/initial", controller.demo_initial_set);
 router.post("/demo/patient", controller.demo_patient_set);
 router.post("/demo/step", controller.demo_step_set);
 router.post("/demo/medicine", controller.demo_medicine_set);

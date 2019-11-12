@@ -3,7 +3,7 @@ const options = require("../options");
 
 const axios = require("axios");
 
-const { webexBaseUrl, webexHeaders, webexBotHeaders } = options;
+const { webexBaseUrl, webexBotHeaders } = options;
 
 const { fullOverwrite } = misc;
 
@@ -58,6 +58,19 @@ exports.status_set = async (req, res, data) => {
   data.status = status;
   overwrite(data);
   return res.json({ status });
+};
+
+exports.initial_set = async (req, res, data) => {
+  const reason = req.body.reason;
+  const country = req.body.country;
+  const accident = req.body.accident;
+  const police = req.body.police;
+  data.reason = reason;
+  data.country = country;
+  data.accident = accident;
+  data.police = police;
+  overwrite(data);
+  return res.json({ reason, country, accident, police });
 };
 
 exports.timing_get = async (req, res, data) => {

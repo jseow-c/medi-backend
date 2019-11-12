@@ -78,24 +78,24 @@ module.exports = function(controller) {
   );
   convo.addMessage(
     {
-      text: "Hi **Sebastian**, your help is requested here.",
-      markdown: "Hi **Sebastian**, your help is requested here.",
+      text: "Hi **Goh Yong Kian**, your help is requested here.",
+      markdown: "Hi **Goh Yong Kian**, your help is requested here.",
       action: "complete"
     },
     "good_ending"
   );
   convo.addQuestion(
-    "Sebastian Ma is available. Should I proceed to add him? (Yes/No)",
+    "Goh Yong Kian is available. Should I proceed to add him? (Yes/No)",
     [
       {
         pattern: "yes|Yes|YES|y|Y",
         handler: async (response, convo, bot) => {
-          await bot.say("Adding Sebastian Ma to the conversation...");
+          await bot.say("Adding Goh Yong Kian to the conversation...");
           // const room = await bot.api.rooms.get();
           // Adding Sebastian here
           await bot.api.memberships.create({
             roomId: convo.vars.channel,
-            personEmail: "sebma@cisco.com"
+            personEmail: "plasticsurgeon@ccepdemo.com"
           });
           await convo.gotoThread("good_ending");
         }

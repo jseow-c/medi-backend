@@ -62,6 +62,8 @@ exports.patient_markdown = (req, res) =>
 // Demo Data
 exports.demo_token_set = (req, res) =>
   demoController.token_set(req, res, webexHeader);
+exports.demo_initial_set = (req, res) =>
+  demoController.initial_set(req, res, demoData);
 exports.demo_patient_get = (req, res) =>
   demoController.patient_get(req, res, demoData);
 exports.demo_patient_set = (req, res) =>
