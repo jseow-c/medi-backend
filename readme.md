@@ -61,6 +61,42 @@ To complete the configuration of this bot, make sure to update the included `.en
 }
 ```
 
+## Installation and Startup
+
+1. Git Clone this package first.
+
+```bash
+git clone git@www-github.cisco.com:jseow/moh-bot.git
+```
+
+2. Go to the folder
+
+```bash
+cd /go/to/where/you/git/clone/path
+```
+
+3. Use the package manager [npm](https://nodejs.org/en/) to install MOH-Bot.
+
+```bash
+npm install
+```
+
+4. Copy a **.env** file from **.env.example**
+
+```bash
+cp .env.example .env
+```
+
+5. Copy content given separately to you
+
+> It can come either through a separate email or some message
+
+6. Start the server
+
+```bash
+node server.js
+```
+
 ## Botkit Starter Kit
 
 This is a Botkit starter kit for webex, created with the [Yeoman generator](https://github.com/howdyai/botkit/tree/master/packages/generator-botkit#readme).
