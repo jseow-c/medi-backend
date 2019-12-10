@@ -20,6 +20,9 @@ app.use(cors());
 // use jsonParser
 app.use(express.json());
 
+// load images
+app.use("/images", express.static("img"));
+
 //load from router
 const indexRouter = require("./main/router");
 app.use("/", indexRouter);

@@ -28,6 +28,8 @@ router.post("/intercorp/compare", controller.face_compare);
 router.post("/patient/get", controller.patient_get);
 router.post("/patient/markdown", controller.patient_markdown);
 
+router.post("/meraki/snap", controller.meraki_snap);
+
 router.get("/demo/patient", controller.demo_patient_get);
 router.post("/demo/initial", controller.demo_initial_set);
 router.post("/demo/patient", controller.demo_patient_set);

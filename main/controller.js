@@ -6,6 +6,7 @@ const personController = require("./intercorp/controller/person");
 const faceController = require("./intercorp/controller/face");
 const infoController = require("./patient/controller/info");
 const demoController = require("./demo/controller/index");
+const merakiController = require("./meraki/controller");
 
 // initialize data
 let webexData, intercorpData, patientData, demoData, medicineData;
@@ -80,3 +81,5 @@ exports.demo_message_set_and_get = (req, res) =>
   demoController.message_set_and_get(req, res, demoData, webexHeader);
 exports.demo_room_clear_all = (req, res) =>
   demoController.room_clear_all(req, res, webexData);
+
+exports.meraki_snap = (req, res) => merakiController.snap(req, res);

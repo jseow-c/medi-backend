@@ -2,6 +2,7 @@ const axios = require("axios");
 const fetch = require("node-fetch");
 const misc = require("../../misc");
 const options = require("../options");
+const sharp = require("sharp");
 
 const { fullOverwrite } = misc;
 const overwrite = fullOverwrite("intercorp.json");
@@ -13,7 +14,10 @@ const collectionName = process.env.COLLECTION_NAME;
 const convertToBase64 = async url => {
   const response = await fetch(url);
   const buffer = await response.buffer();
-  return buffer.toString("base64");
+  const resizedBuffer = await sharp(buffer)
+    .resize({ width: 350 })
+    .toBuffer();
+  return resizedBuffer.toString("base64");
 };
 
 exports.create = async (req, res, data) => {
@@ -45,10 +49,16 @@ exports.compare = async (req, res, data) => {
     images: [thumbnail],
     collection_id: collectionId
   };
-  const response = await axios.post(url, postData, options);
+  let response;
+  await axios
+    .post(url, postData, options)
+    .then(res => {
+      response = res.data.response;
+    })
+    .catch(err => console.log(err.response.statusText));
 
-  if (response.data.response.length > 0) {
-    return res.json(response.data.response[0]);
+  if (response && response.length > 0) {
+    return res.json(response[0]);
   } else {
     return res.status(500).send("No match found.");
   }

@@ -78,8 +78,7 @@ module.exports = function(controller) {
   );
   convo.addMessage(
     {
-      text: "Hi **Goh Yong Kian**, your help is requested here.",
-      markdown: "Hi **Goh Yong Kian**, your help is requested here.",
+      text: "Hi Goh Yong Kian, your help is requested here.",
       action: "complete"
     },
     "good_ending"

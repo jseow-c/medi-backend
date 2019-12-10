@@ -3,6 +3,7 @@
         "authtoken",
         "bmin",
         "intercorp",
+        "meraki",
         "nric"
     ]
 }
