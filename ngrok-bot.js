@@ -19,11 +19,16 @@ const { MongoDbStorage } = require("botbuilder-storage-mongodb");
 require("dotenv").config();
 
 exports.startBot = async () => {
-  const url = await ngrok.connect({
-    authtoken: process.env.NGROK_TOKEN,
-    addr: process.env.PORT,
-    region: "ap"
-  });
+  let url;
+  if (process.env.WEBEX_PUBLIC_ADDRESS) {
+    url = `${process.env.WEBEX_PUBLIC_ADDRESS}:${process.env.PORT}`;
+  } else {
+    url = await ngrok.connect({
+      authtoken: process.env.NGROK_TOKEN,
+      addr: process.env.PORT,
+      region: "ap"
+    });
+  }
 
   let storage = null;
   if (process.env.MONGO_URI) {
