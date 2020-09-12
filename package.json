@@ -21,7 +21,7 @@
     "fs": "0.0.1-security",
     "localtunnel": "^2.0.0",
     "ngrok": "^3.2.5",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.1",
     "sharp": "^0.23.4",
     "swagger-ui-express": "^4.1.2"
   }
